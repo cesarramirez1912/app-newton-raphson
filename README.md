@@ -1,6 +1,6 @@
-# calculo_numerico_app
+# Calculo Numerico app
 
-A new Flutter application.
+Aplicação desenvolvida para encontrar raizes de uma função pelo método de Newton Raphson.
 
 ## Getting Started
 
