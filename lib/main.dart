@@ -29,6 +29,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _counter = 0.toString();
 
+  TextEditingController controller = TextEditingController();
+  TextEditingController __controller = TextEditingController();
+  String thisText = "";
+  int pinLength = 1;
+
+  bool hasError = false;
+  String errorMessage;
+
   void _limpa() {
     setState(() {
       listaNumeros = [];
@@ -47,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print(n.lowerLimit()); // -84.0
     print(n.findSignChange()); // [5.040000000000064, 6.720000000000064]
     print(n.calculateFrom(5));
-   // double teste = n.upperLimit();// 5.705115796346382
+    // double teste = n.upperLimit();// 5.705115796346382
 //    while(teste>=n.lowerLimit()){
 //      print('x'+teste.toString());
 //      print('raiz' + n.calculateFrom(teste).toString());
@@ -83,6 +91,76 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                    height: 80,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          width: 50,
+                          height: 50,
+                          child: Theme(
+                            data: new ThemeData(
+                              primaryColor: Colors.green,
+                              primaryColorDark: Colors.red,
+                            ),
+                            child: new TextField(
+                              showCursor: true,
+                              cursorColor: Colors.deepPurple,
+                              keyboardType: TextInputType.number,
+                              decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.only(top: 2),
+                                  border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
+                                  suffixStyle: const TextStyle(color: Colors.green)),
+                              style: TextStyle(height: 1.2, fontSize: 40.0, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          'x',
+                          style: TextStyle(fontSize: 83, fontWeight: FontWeight.w500, color: Colors.grey[700]),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    )),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      child: Theme(
+                        data: new ThemeData(
+                          primaryColor: Colors.green,
+                          primaryColorDark: Colors.red,
+                        ),
+                        child: new TextField(
+                          showCursor: true,
+                          cursorColor: Colors.deepPurple,
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 2),
+                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
+                              suffixStyle: const TextStyle(color: Colors.green)),
+                          style: TextStyle(height: 1.2, fontSize: 14.0, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: 15,
             ),
@@ -101,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Flexible(
                   child: Container(
                     margin: EdgeInsets.only(right: 5, left: 10),
-                    padding: EdgeInsets.only(right: 8,left: 8,bottom: 10),
+                    padding: EdgeInsets.only(right: 8, left: 8, bottom: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey[200],
@@ -128,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Flexible(
                   child: Container(
                     margin: EdgeInsets.only(right: 10, left: 5),
-                    padding: EdgeInsets.only(right: 8,left: 8,bottom: 10),
+                    padding: EdgeInsets.only(right: 8, left: 8, bottom: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey[200],
@@ -142,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: new InputDecoration(
                           hintText: ' ',
                           labelText: 'expoente do X',
-                          labelStyle: TextStyle(color: Colors.grey[700],fontSize: 15),
+                          labelStyle: TextStyle(color: Colors.grey[700], fontSize: 15),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
@@ -181,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(right:10,left:10.0),
+                  padding: const EdgeInsets.only(right: 10, left: 10.0),
                   child: Text(
                     'A sua função esta ficando assim:',
                     style: TextStyle(color: Colors.grey[700]),
@@ -256,7 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 10,left: 10,top: 20),
+              padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -266,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Text(
                     '$_counter',
-                    style: TextStyle(color: Colors.grey[800], fontSize: 30,fontWeight: FontWeight.w700),
+                    style: TextStyle(color: Colors.grey[800], fontSize: 30, fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
