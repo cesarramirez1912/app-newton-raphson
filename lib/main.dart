@@ -86,289 +86,303 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double _largura = MediaQuery.of(context).size.width;
+    double _altura = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Color.fromRGBO(245, 246, 250, 1.0),
       body: Stack(
         children: <Widget>[
+          Positioned(
+            top: -0,
+            left: -130,
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(38 / 360),
+              child: Container(
+                width: 600,
+                height: 550,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(224, 53, 44, 1.0),
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
+              ),
+            ),
+          ),
+          Positioned(
+            top: -0,
+            left: -200,
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(50 / 360),
+              child: Container(
+                width: 600,
+                height: 550,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(239, 48, 36, 1.0),
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
+              ),
+            ),
+          ),
           Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(239, 48, 36, 1.0),
-                borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))),
-          ),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.only(bottomRight: Radius.circular(50), bottomLeft: Radius.circular(50))),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration:
-                  BoxDecoration(color: Colors.red, borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Container(
-              width: 150,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(239, 48, 36, 1.0),
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(50), topLeft: Radius.circular(20))),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 60,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10),
-                  child: Text(
-                    'Metodo de \nNewton Raphson',
-                    style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontSize: 34, fontWeight: FontWeight.w600),
+            height: _altura,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 60,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40, left: 10, top: 20, bottom: 0),
-                  child: Text(
-                    'Crie a sua função completando o multiplicador e o expoente do X:',
-                    style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontWeight: FontWeight.w300),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, left: 10),
+                    child: Text(
+                      'Metodo de \nNewton Raphson',
+                      style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontSize: 34, fontWeight: FontWeight.w600),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 30, bottom: 30, left: 10, right: 30),
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 40, left: 10, top: 20, bottom: 0),
+                    child: Text(
+                      'Crie a sua função completando o multiplicador e o expoente do X:',
+                      style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Column(
                         children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              height: 90,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: listaNumeros.length + 1,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    if (listaNumeros.length == 0) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(left: 10),
-                                        child: caixaDoX(),
-                                      );
-                                    }
-                                    if (index == listaNumeros.length) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(left: 10),
-                                        child: caixaDoX(),
-                                      );
-                                    } else {
-                                      return Center(
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(top: 8),
-                                              width: listaNumeros2[index] >= 10 && listaNumeros2[index] < 100
-                                                  ? 68
-                                                  : listaNumeros2[index] > 100 ? 80 : 56,
-                                              height: 38,
-                                              child: variavelDoX(listaNumeros2[index], index),
-                                            ),
-                                            Positioned(
-                                              top: 0,
-                                              left:
-                                                  listaNumeros2[index] >= 10 && listaNumeros2[index] < 100 ? 30 : listaNumeros2[index] > 99 ? 36 : 18,
-                                              child: Container(
-                                                padding: EdgeInsets.all(2),
-                                                height: 20,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 25.0),
-                                                  child: Text(
-                                                    listaNumeros[index].toString(),
-                                                    style: Theme.of(context).textTheme.subhead,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 90,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: listaNumeros.length + 1,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        if (listaNumeros.length == 0) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(left: 10),
+                                            child: caixaDoX(),
+                                          );
+                                        }
+                                        if (index == listaNumeros.length) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(left: 10),
+                                            child: caixaDoX(),
+                                          );
+                                        } else {
+                                          return Center(
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Container(
+                                                  padding: EdgeInsets.only(top: 8),
+                                                  width: listaNumeros2[index] >= 10 && listaNumeros2[index] < 100
+                                                      ? 68
+                                                      : listaNumeros2[index] > 100 ? 80 : 56,
+                                                  height: 38,
+                                                  child: variavelDoX(listaNumeros2[index], index),
+                                                ),
+                                                Positioned(
+                                                  top: 0,
+                                                  left: listaNumeros2[index] >= 10 && listaNumeros2[index] < 100
+                                                      ? 30
+                                                      : listaNumeros2[index] > 99 ? 36 : 18,
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(2),
+                                                    height: 20,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 25.0),
+                                                      child: Text(
+                                                        listaNumeros[index].toString(),
+                                                        style: Theme.of(context).textTheme.subhead,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  }),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: FlatButton(
-                              child: Text(
-                                'Limpar',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                          );
+                                        }
+                                      }),
+                                ),
                               ),
-                              color: Color.fromRGBO(239, 48, 36, 1.0),
-                              onPressed: () {
-                                _limpa();
-                              },
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10, left: 10),
+                                child: FlatButton(
+                                  child: Text(
+                                    'Limpar',
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                  ),
+                                  color: Color.fromRGBO(239, 48, 36, 1.0),
+                                  onPressed: () {
+                                    _limpa();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 40, left: 10, top: 10, bottom: 0),
+                        child: Text(
+                          'Insira um chute inicial:',
+                          style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Card(
+                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(top: 8),
+                            width: 40,
+                            height: 50,
+                            child: Theme(
+                              data: new ThemeData(
+                                primaryColor: Colors.green,
+                                primaryColorDark: Colors.red,
+                              ),
+                              child: new TextField(
+                                controller: myControllerChute,
+                                showCursor: true,
+                                cursorColor: Colors.deepPurple,
+                                keyboardType: TextInputType.number,
+                                decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.only(top: 10),
+                                    border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
+                                    suffixStyle: const TextStyle(color: Colors.green)),
+                                style: TextStyle(height: 1.2, fontSize: 30.0, fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40, left: 10, top: 10, bottom: 0),
-                      child: Text(
-                        'Insira um chute inicial:',
-                        style: TextStyle(fontFamily: 'Rubik', color: Colors.black, fontWeight: FontWeight.w300),
-                      ),
                     ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(6),
-                          bottomLeft: Radius.circular(6),
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(60))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 8),
-                        width: 40,
-                        height: 50,
-                        child: Theme(
-                          data: new ThemeData(
-                            primaryColor: Colors.green,
-                            primaryColorDark: Colors.red,
-                          ),
-                          child: new TextField(
-                            controller: myControllerChute,
-                            showCursor: true,
-                            cursorColor: Colors.deepPurple,
-                            keyboardType: TextInputType.number,
-                            decoration: new InputDecoration(
-                                contentPadding: EdgeInsets.only(top: 10),
-                                border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
-                                suffixStyle: const TextStyle(color: Colors.green)),
-                            style: TextStyle(height: 1.2, fontSize: 30.0, fontWeight: FontWeight.w600),
+                  ),
+                  Card(
+                    margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 20),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10, left: 20.0),
+                              child: Text(
+                                'Raiz',
+                                style: TextStyle(fontFamily: 'Rubik', color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20, top: 10.0),
+                              child: FlatButton(
+                                child: Text(
+                                  'Calcular',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                color: Colors.green,
+                                onPressed: () {
+                                  _calcula();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 20, left: 20),
+                          child: Divider(
+                            color: Colors.grey,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10.0),
-                      child: Text(
-                        'Raiz',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10.0),
-                      child: FlatButton(
-                        child: Text(
-                          'Calcular',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        color: Colors.green,
-                        onPressed: () {
-                          _calcula();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        '=',
-                        style: TextStyle(color: Colors.grey[400], fontSize: 50),
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '$_counter',
-                            style: TextStyle(color: Colors.grey[800], fontSize: 25, fontWeight: FontWeight.w700),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10, left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                '=',
+                                style: TextStyle(color: Colors.grey[400], fontSize: 50),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '$_counter',
+                                    style: TextStyle(color: Colors.grey[800], fontSize: 25, fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10.0),
-                      child: Text(
-                        'Iterações',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10, left: 20.0),
+                              child: Text(
+                                'Iterações',
+                                style: TextStyle(fontFamily: 'Rubik', color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 20, left: 20),
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10, left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                '=',
+                                style: TextStyle(color: Colors.grey[400], fontSize: 50),
+                              ),
+                              Text(
+                                '$_iteracoes',
+                                style: TextStyle(color: Colors.grey[800], fontSize: 20, fontWeight: FontWeight.w700),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        '=',
-                        style: TextStyle(color: Colors.grey[400], fontSize: 50),
-                      ),
-                      Text(
-                        '$_iteracoes',
-                        style: TextStyle(color: Colors.grey[800], fontSize: 20, fontWeight: FontWeight.w700),
-                      ),
-                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],
@@ -419,7 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Text(
                       'x',
-                      style: TextStyle(fontFamily: 'Rubik', fontSize: 83, fontWeight: FontWeight.w500, color: Colors.grey[700]),
+                      style: TextStyle(fontFamily: 'Rubik', fontSize: 83, fontWeight: FontWeight.w500, color: Colors.black),
                     ),
                     SizedBox(
                       width: 15,
