@@ -36,13 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  extended_math:
-    dependency: "direct main"
-    description:
-      name: extended_math
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.28"
   flutter:
     dependency: "direct main"
     description: flutter
