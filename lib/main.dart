@@ -89,33 +89,33 @@ class _MyHomePageState extends State<MyHomePage> {
     double _largura = MediaQuery.of(context).size.width;
     double _altura = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 246, 250, 1.0),
+      backgroundColor: Color.fromRGBO(206, 35, 26, 1.0),
       body: Stack(
         children: <Widget>[
           Positioned(
             top: -0,
-            left: -130,
+            left: -140,
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(38 / 360),
               child: Container(
                 width: 600,
                 height: 550,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(224, 53, 44, 1.0),
+                    color: Color.fromRGBO(220, 42, 31, 1.0),
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
               ),
             ),
           ),
           Positioned(
-            top: -0,
-            left: -200,
+            top: -5,
+            left: -250,
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(50 / 360),
               child: Container(
                 width: 600,
                 height: 550,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(239, 48, 36, 1.0),
+                    color: Color.fromRGBO(200, 20, 10, 1.0),
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
               ),
             ),
@@ -178,33 +178,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: caixaDoX(),
                                           );
                                         } else {
-                                          return Center(
+                                          return Container(
                                             child: Stack(
                                               children: <Widget>[
                                                 Container(
-                                                  padding: EdgeInsets.only(top: 8),
-                                                  width: listaNumeros2[index] >= 10 && listaNumeros2[index] < 100
-                                                      ? 68
-                                                      : listaNumeros2[index] > 100 ? 80 : 56,
-                                                  height: 38,
-                                                  child: variavelDoX(listaNumeros2[index], index),
-                                                ),
-                                                Positioned(
-                                                  top: 0,
-                                                  left: listaNumeros2[index] >= 10 && listaNumeros2[index] < 100
-                                                      ? 30
-                                                      : listaNumeros2[index] > 99 ? 36 : 18,
-                                                  child: Container(
-                                                    padding: EdgeInsets.all(2),
-                                                    height: 20,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(left: 25.0),
-                                                      child: Text(
-                                                        listaNumeros[index].toString(),
-                                                        style: Theme.of(context).textTheme.subhead,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  padding: EdgeInsets.only(top: 16),
+                                                  child: variavelDoX(listaNumeros2[index], index, listaNumeros[index]),
                                                 ),
                                               ],
                                             ),
@@ -217,24 +196,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           SizedBox(
                             height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10, left: 10),
-                                child: FlatButton(
-                                  child: Text(
-                                    'Limpar',
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-                                  ),
-                                  color: Color.fromRGBO(239, 48, 36, 1.0),
-                                  onPressed: () {
-                                    _limpa();
-                                  },
-                                ),
-                              ),
-                            ],
                           ),
                         ],
                       ),
@@ -378,13 +339,37 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                         ),
+                        Container(
+                          padding: EdgeInsets.only(right: 20, left: 20),
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10, left: 10),
+                              child: FlatButton(
+                                child: Text(
+                                  'Limpar',
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                ),
+                                color: Color.fromRGBO(239, 48, 36, 1.0),
+                                onPressed: () {
+                                  _limpa();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -492,17 +477,68 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget variavelDoX(num variavel, int index) {
-    if (index == 0) {
-      if (variavel > 10) {
-        return Text(' ' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
-      } else {
-        return Text('  ' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
-      }
-    } else if (variavel > 0) {
-      return Text('+' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
-    } else {
-      return Text(variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
-    }
+  Widget variavelDoX(num variavel, int index, num expoente) {
+    return Row(
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            Container(
+                height: 50,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(right: 3, left: 3, bottom: 7),
+                      child: Theme(
+                          data: new ThemeData(
+                            primaryColor: Colors.green,
+                            primaryColorDark: Colors.red,
+                          ),
+                          child: Text(
+                            variavel.toString(),
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
+                    Text(
+                      'x',
+                      style: TextStyle(fontFamily: 'Rubik', fontSize: 35, fontWeight: FontWeight.w500, color: Colors.black),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
+                )),
+            Positioned(
+              top: 8,
+              right: 0,
+              child: Container(
+                child: Theme(
+                    data: new ThemeData(
+                      primaryColor: Colors.green,
+                      primaryColorDark: Colors.red,
+                    ),
+                    child: Text(expoente.toString())),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
+
+//  Widget variavelDoX(num variavel, int index) {
+//    if (index == 0) {
+//      if (variavel > 10) {
+//        return Text(' ' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
+//      } else {
+//        return Text('  ' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
+//      }
+//    } else if (variavel > 0) {
+//      return Text('+' + variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
+//    } else {
+//      return Text(variavel.toString() + 'x', style: Theme.of(context).textTheme.headline);
+//    }
+//  }
 }
