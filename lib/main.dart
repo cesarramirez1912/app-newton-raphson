@@ -38,88 +38,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _limpa() {
     setState(() {
-      listaNumeros = [];
-      listaNumeros2 = [];
+      listaExpoente = [];
+      listaMultiplicadorX = [];
       _counter = 0.toString();
       _iteracoes = 0.toString();
     });
   }
 
   void _calcula() {
-    print(myControllerChute.text);
-    // expression == x^3 - 18*x -83
-    // expression == x^3 - 2*x^2 -x + 37/500
-    // expression == x^2 - 5 ok 2.236067977
-    // expression == x^3 - 2*x - 5
-    final n = NewtonsMethod(listaNumeros2, listaNumeros);
-    print(n.upperLimit()); // 84.0
-    print(n.lowerLimit()); // -84.0
-    print(n.findSignChange()); // [5.040000000000064, 6.720000000000064]
+    final n = MetodoDeNewton(listaMultiplicadorX, listaExpoente);
     print(n.calculateFrom(int.parse(myControllerChute.text)));
-    // double teste = n.upperLimit();// 5.705115796346382
-//    while(teste>=n.lowerLimit()){
-//      print('x'+teste.toString());
-//      print('raiz' + n.calculateFrom(teste).toString());
-//      teste--;
-//    }
     setState(() {
-      _counter = n.calculateFrom(int.parse(myControllerChute.text))[0].toString();
-      _iteracoes = n.calculateFrom(int.parse(myControllerChute.text))[1].toString();
-      // _counter = n.calculateFrom(int.parse(myControllerChute.text)).toString();
+      _counter =
+          n.calculateFrom(int.parse(myControllerChute.text))[0].toString();
+      _iteracoes =
+          n.calculateFrom(int.parse(myControllerChute.text))[1].toString();
     });
   }
 
   void _incrementCounter() {
     setState(() {
-      listaNumeros.add(int.parse(myControllerInt.text));
-      listaNumeros2.add(num.parse(myControllerNum.text));
+      listaExpoente.add(int.parse(myControllerInt.text));
+      listaMultiplicadorX.add(num.parse(myControllerNum.text));
     });
     myControllerNum.clear();
     myControllerInt.clear();
   }
 
-  List<int> listaNumeros = new List<int>();
-  List<num> listaNumeros2 = new List<num>();
+  List<int> listaExpoente = new List<int>();
+  List<num> listaMultiplicadorX = new List<num>();
   final myControllerInt = TextEditingController();
   final myControllerNum = TextEditingController();
   final myControllerChute = TextEditingController(text: 10.toString());
 
   @override
   Widget build(BuildContext context) {
-    double _largura = MediaQuery.of(context).size.width;
     double _altura = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(206, 35, 26, 1.0),
+      backgroundColor: Color.fromRGBO(237, 237, 237, 1.0),
       body: Stack(
         children: <Widget>[
-          Positioned(
-            top: -0,
-            left: -140,
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(38 / 360),
-              child: Container(
-                width: 600,
-                height: 550,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(220, 42, 31, 1.0),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
-              ),
-            ),
-          ),
-          Positioned(
-            top: -5,
-            left: -250,
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(50 / 360),
-              child: Container(
-                width: 600,
-                height: 550,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(200, 20, 10, 1.0),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(40), bottomLeft: Radius.circular(30))),
-              ),
-            ),
-          ),
           Container(
             height: _altura,
             child: SingleChildScrollView(
@@ -127,21 +85,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    height: 60,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: Text(
-                      'Metodo de \nNewton Raphson',
-                      style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontSize: 34, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 40, left: 10, top: 20, bottom: 0),
-                    child: Text(
-                      'Crie a sua função completando o multiplicador e o expoente do X:',
-                      style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontWeight: FontWeight.w300),
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomRight,
+                            end: Alignment.topLeft,
+                            colors: [Colors.deepPurpleAccent, Colors.lightBlue])),
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                        right: 10, left: 10, bottom: 20, top: 40),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Metodo de \nNewton Raphson',
+                          style: TextStyle(
+                              fontFamily: 'Rubik',
+                              color: Colors.white,
+                              fontSize: 31,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Para calcular Raizes de funções',
+                          style: TextStyle(
+                              fontFamily: 'Rubik',
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w300),
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -149,11 +125,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Card(
                     margin: EdgeInsets.only(left: 10, right: 10),
-                    elevation: 5,
+                    elevation: 2,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 15,right: 30,left: 15),
                       child: Column(
                         children: <Widget>[
+                          Text(
+                            'Crie a sua função completando o multiplicador e o expoente do X:',
+                            style: TextStyle(
+                                fontFamily: 'Rubik',
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            height: 2.2,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -163,18 +152,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 90,
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: listaNumeros.length + 1,
+                                      itemCount: listaExpoente.length + 1,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        if (listaNumeros.length == 0) {
+                                        if (listaExpoente.length == 0) {
                                           return Padding(
-                                            padding: const EdgeInsets.only(left: 10),
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
                                             child: caixaDoX(),
                                           );
                                         }
-                                        if (index == listaNumeros.length) {
+                                        if (index == listaExpoente.length) {
                                           return Padding(
-                                            padding: const EdgeInsets.only(left: 10),
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
                                             child: caixaDoX(),
                                           );
                                         } else {
@@ -182,8 +173,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: Stack(
                                               children: <Widget>[
                                                 Container(
-                                                  padding: EdgeInsets.only(top: 16),
-                                                  child: variavelDoX(listaNumeros2[index], index, listaNumeros[index]),
+                                                  padding:
+                                                      EdgeInsets.only(top: 16),
+                                                  child: variavelDoX(
+                                                      listaMultiplicadorX[
+                                                          index],
+                                                      index,
+                                                      listaExpoente[index]),
                                                 ),
                                               ],
                                             ),
@@ -201,71 +197,85 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 40, left: 10, top: 10, bottom: 0),
-                        child: Text(
-                          'Insira um chute inicial:',
-                          style: TextStyle(fontFamily: 'Rubik', color: Colors.white, fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ],
-                  ),
                   Card(
                     margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                    elevation: 5,
+                    elevation: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 8),
-                            width: 40,
-                            height: 50,
-                            child: Theme(
-                              data: new ThemeData(
-                                primaryColor: Colors.green,
-                                primaryColorDark: Colors.red,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Insira um chute inicial:',
+                                style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300),
                               ),
-                              child: new TextField(
-                                controller: myControllerChute,
-                                showCursor: true,
-                                cursorColor: Colors.deepPurple,
-                                keyboardType: TextInputType.number,
-                                decoration: new InputDecoration(
-                                    contentPadding: EdgeInsets.only(top: 10),
-                                    border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
-                                    suffixStyle: const TextStyle(color: Colors.green)),
-                                style: TextStyle(height: 1.2, fontSize: 30.0, fontWeight: FontWeight.w600),
+                              Divider(
+                                height: 10.0,
                               ),
-                            ),
+                              Container(
+                                margin: EdgeInsets.only(top: 8),
+                                width: 40,
+                                height: 50,
+                                child: Theme(
+                                  data: new ThemeData(
+                                    primaryColor: Colors.green,
+                                    primaryColorDark: Colors.red,
+                                  ),
+                                  child: new TextField(
+                                    controller: myControllerChute,
+                                    showCursor: true,
+                                    cursorColor: Colors.deepPurple,
+                                    keyboardType: TextInputType.number,
+                                    decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(top: 10),
+                                        border: new OutlineInputBorder(
+                                            borderSide: new BorderSide(
+                                                color: Colors.black)),
+                                        suffixStyle:
+                                        const TextStyle(color: Colors.green)),
+                                    style: TextStyle(
+                                        height: 1.2,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
                   ),
                   Card(
-                    margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 20),
+                    margin: EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 20),
                     child: Column(
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(top: 10, left: 20.0),
+                              padding:
+                                  const EdgeInsets.only(top: 10, left: 20.0),
                               child: Text(
                                 'Raiz',
-                                style: TextStyle(fontFamily: 'Rubik', color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 20, top: 10.0),
+                              padding:
+                                  const EdgeInsets.only(right: 20, top: 10.0),
                               child: FlatButton(
                                 child: Text(
                                   'Calcular',
@@ -292,14 +302,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: <Widget>[
                               Text(
                                 '=',
-                                style: TextStyle(color: Colors.grey[400], fontSize: 50),
+                                style: TextStyle(
+                                    color: Colors.grey[400], fontSize: 50),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     '$_counter',
-                                    style: TextStyle(color: Colors.grey[800], fontSize: 25, fontWeight: FontWeight.w700),
+                                    style: TextStyle(
+                                        color: Colors.grey[800],
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ),
                               ),
@@ -309,10 +323,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         Row(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(right: 10, left: 20.0),
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 20.0),
                               child: Text(
                                 'Iterações',
-                                style: TextStyle(fontFamily: 'Rubik', color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -330,11 +349,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: <Widget>[
                               Text(
                                 '=',
-                                style: TextStyle(color: Colors.grey[400], fontSize: 50),
+                                style: TextStyle(
+                                    color: Colors.grey[400], fontSize: 50),
                               ),
                               Text(
                                 '$_iteracoes',
-                                style: TextStyle(color: Colors.grey[800], fontSize: 20, fontWeight: FontWeight.w700),
+                                style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ],
                           ),
@@ -349,11 +372,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(right: 10, left: 10),
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10),
                               child: FlatButton(
                                 child: Text(
                                   'Limpar',
-                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 color: Color.fromRGBO(239, 48, 36, 1.0),
                                 onPressed: () {
@@ -410,15 +436,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           keyboardType: TextInputType.number,
                           decoration: new InputDecoration(
                               contentPadding: EdgeInsets.only(top: 10),
-                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
-                              suffixStyle: const TextStyle(color: Colors.green)),
-                          style: TextStyle(height: 1.0, fontSize: 35.0, fontWeight: FontWeight.w600),
+                              border: new OutlineInputBorder(
+                                  borderSide:
+                                      new BorderSide(color: Colors.black)),
+                              suffixStyle:
+                                  const TextStyle(color: Colors.green)),
+                          style: TextStyle(
+                              height: 1.0,
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),
                     Text(
                       'x',
-                      style: TextStyle(fontFamily: 'Rubik', fontSize: 83, fontWeight: FontWeight.w500, color: Colors.black),
+                      style: TextStyle(
+                          fontFamily: 'Rubik',
+                          fontSize: 83,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
                     ),
                     SizedBox(
                       width: 15,
@@ -446,9 +482,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       keyboardType: TextInputType.number,
                       decoration: new InputDecoration(
                           contentPadding: EdgeInsets.only(top: 6),
-                          border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black)),
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.black)),
                           suffixStyle: const TextStyle(color: Colors.green)),
-                      style: TextStyle(height: 1.2, fontSize: 14.0, fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          height: 1.2,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -465,7 +505,9 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 30,
             padding: EdgeInsets.all(0),
             margin: EdgeInsets.only(left: 2, top: 10),
-            decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.all(Radius.circular(10))),
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Center(
                 child: Icon(
               Icons.add,
@@ -497,13 +539,19 @@ class _MyHomePageState extends State<MyHomePage> {
                             primaryColorDark: Colors.red,
                           ),
                           child: Text(
-                            variavel.toString(),
+                            variavel > 0
+                                ? '+' + variavel.toString()
+                                : variavel.toString(),
                             style: TextStyle(fontSize: 20),
                           )),
                     ),
                     Text(
                       'x',
-                      style: TextStyle(fontFamily: 'Rubik', fontSize: 35, fontWeight: FontWeight.w500, color: Colors.black),
+                      style: TextStyle(
+                          fontFamily: 'Rubik',
+                          fontSize: 35,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
                     ),
                     SizedBox(
                       width: 15,
